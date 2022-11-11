@@ -20,3 +20,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______,                      _______,  _______,  _______,                      _______,  _______,  _______,  _______,  _______,  _______
   ),
 };
+
+const rgblight_segment_t PROGMEM capslock_layer[] = RGBLIGHT_LAYER_SEGMENTS(
+  {0, 16, HSV_RED}
+);
+const rgblight_segment_t* const PROGMEM rgb_layers[] = RGBLIGHT_LAYERS_LIST(
+  my_capslock_layer
+);
+
+bool led_update_user(led_t led_state) {
+  rgblight_set_layer_state(0, led_state.caps_lock);
+  return true;
+}
+
+void keyboard_post_init_user(void) {
+  // Enable the LED layers
+  rgblight_layers = my_rgb_layers;
+}
